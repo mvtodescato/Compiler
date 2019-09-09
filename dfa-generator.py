@@ -8,6 +8,10 @@ realState = 'S'
 changes = {'S':'S'}
 epsilons = {}
 mortos = []
+out = [] #fita de saida
+separador = []
+est_corrente = 'S'
+
 
 def newLine():
     AF.append([[] for _ in range(len(alphabet))])
@@ -188,7 +192,43 @@ def addError():
             elif transition[0] in mortos:
                 transition[0] = 'Ø'
 
+def analisador(source):
+    cont_line = 0
+    erro = 0
+    token = []
+    for line in source:
+        cont_line += 1
+        for caractere in line:
+            token.append(caractere)
+            if caractere not in separador:
+                trans(caractere)
+                if est_corrente == 'Ø':
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
+                    erro = 1
+                    break
+                else:
+                    continue
+            else:
+                if final[states.index(est_corrente)] == True:
+                    addFita(est_corrente)
+                    addTS(est_corrente,token,cont_line)
+                    token.clear
+                else:
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
+                    erro = 1
+                    break
+                #criar condição de tratamento quando o separador é token também
 
+            
+        if erro == 1 :
+            break 
+
+def addTS(estado,token,linha):
+    a = 1
+def addFita(estado):
+    a = 1
+def trans(simbolo):   #função de transição no automato
+    a = 1
 def main():
 
     file = open("input.txt","r")
@@ -248,4 +288,6 @@ def main():
             linha += AF[i]
             writer.writerow(linha)
     file.close()
+    source = open("source.txt", "r")
+    analisador(source)
 main()
