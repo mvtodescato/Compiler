@@ -63,7 +63,7 @@ def addRG(line):
 def nextState():
     global state
     global realState
-    if realState == 'S':
+    if realState == 'S':https://github.com/mvtodescato/Compiler.git
         realState = 'A'
     elif realState == 'R':
         realState = 'U'
@@ -196,11 +196,12 @@ def analisador(source):
     cont_line = 0
     erro = 0
     token = []
+    sep = 0   #variavel de controle se estiver verificando um separador
     for line in source:
-        cont_line += 1
+        cont_line = cont_line + 1
         for caractere in line:
             token.append(caractere)
-            if caractere not in separador:
+            if caractere not in separador and sep == 0:
                 trans(caractere)
                 if est_corrente == 'Ø':
                     print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
@@ -208,22 +209,48 @@ def analisador(source):
                     break
                 else:
                     continue
-            else:
+            else if sep == 0:
                 if final[states.index(est_corrente)] == True:
                     addFita(est_corrente)
                     addTS(est_corrente,token,cont_line)
                     token.clear
+                    est_corrente = 'S'
                 else:
                     print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
                     erro = 1
                     break
+                if caractere = ' ':
+                    continue
+                else:
+                    token.append(caractere)
+                    trans(caractere)
+                    if final[states.index(est_corrente)] == True:
+                        addFita(est_corrente)
+                        addTS(est_corrente,token,cont_line)
+                        token.clear
+                        est_corrente = 'S'
+                    else:
+                        sep = 1
+                        continue
+            else:
+                trans(caractere)
+                if est_corrente == 'Ø':
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
+                    erro = 1
+                    break
+                if final[states.index(est_corrente)] == True:
+                    addFita(est_corrente)
+                    addTS(est_corrente,token,cont_line)
+                    token.clear
+                    est_corrente = 'S'
+                    sep = 0
+                else:
+                    continue
                 #criar condição de tratamento quando o separador é token também
-
-            
         if erro == 1 :
             break 
 
-def addTS(estado,token,linha):
+def addTS(estado,token,linha): 
     a = 1
 def addFita(estado):
     a = 1
