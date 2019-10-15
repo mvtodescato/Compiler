@@ -1,3 +1,2 @@
-int n;
-int b;
-b = 3;
+if;
+else==if;

@@ -11,6 +11,8 @@ mortos = []
 out = [] #fita de saida
 separador = []
 est_corrente = 'S'
+TS = []
+count_TS = 0
 
 
 def newLine():
@@ -63,7 +65,7 @@ def addRG(line):
 def nextState():
     global state
     global realState
-    if realState == 'S':https://github.com/mvtodescato/Compiler.git
+    if realState == 'S':
         realState = 'A'
     elif realState == 'R':
         realState = 'U'
@@ -193,41 +195,44 @@ def addError():
                 transition[0] = 'Ø'
 
 def analisador(source):
+    global est_corrente
     cont_line = 0
     erro = 0
-    token = []
+    token = ''
     sep = 0   #variavel de controle se estiver verificando um separador
     for line in source:
         cont_line = cont_line + 1
         for caractere in line:
-            token.append(caractere)
+            if caractere == '\n':
+                break
             if caractere not in separador and sep == 0:
                 trans(caractere)
                 if est_corrente == 'Ø':
-                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In:" + caractere)
                     erro = 1
                     break
                 else:
+                    token= token + caractere
                     continue
-            else if sep == 0:
-                if final[states.index(est_corrente)] == True:
+            elif sep == 0:
+                if final[states.index(est_corrente)] == True:  
                     addFita(est_corrente)
                     addTS(est_corrente,token,cont_line)
-                    token.clear
+                    token = ''
                     est_corrente = 'S'
                 else:
                     print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
                     erro = 1
                     break
-                if caractere = ' ':
+                if caractere == ' ':
                     continue
                 else:
-                    token.append(caractere)
+                    token = token + caractere
                     trans(caractere)
                     if final[states.index(est_corrente)] == True:
                         addFita(est_corrente)
                         addTS(est_corrente,token,cont_line)
-                        token.clear
+                        token = ''
                         est_corrente = 'S'
                     else:
                         sep = 1
@@ -235,13 +240,14 @@ def analisador(source):
             else:
                 trans(caractere)
                 if est_corrente == 'Ø':
-                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In in:" + caractere)
                     erro = 1
                     break
                 if final[states.index(est_corrente)] == True:
+                    token= token + caractere
                     addFita(est_corrente)
                     addTS(est_corrente,token,cont_line)
-                    token.clear
+                    token = ''
                     est_corrente = 'S'
                     sep = 0
                 else:
@@ -251,11 +257,21 @@ def analisador(source):
             break 
 
 def addTS(estado,token,linha): 
-    a = 1
+    global count_TS
+    TS.append([[] for _ in range(3)])
+    TS[count_TS][0] = estado
+    TS[count_TS][1] = linha
+    TS[count_TS][2] = token
+    count_TS = count_TS + 1
 def addFita(estado):
-    a = 1
+    out.append(estado)
+
 def trans(simbolo):   #função de transição no automato
-    a = 1
+    global est_corrente
+    if simbolo not in alphabet:
+        est_corrente = 'Ø'
+    else:
+        est_corrente = AF[states.index(est_corrente)][alphabet.index(simbolo)][0]
 def main():
 
     file = open("input.txt","r")
@@ -283,7 +299,7 @@ def main():
     determinize()
     print("\n\nTABELA DETERMINIZADA")
     print(alphabet)  #Print AF final
-    for i in range(len(states)):    #Print AF final
+    for i in range(len(states)):    #Print AF finalint n
         print(final[i],states[i],AF[i])    #Print AF final
     print(changes)
     removeInaccessible()
@@ -316,5 +332,11 @@ def main():
             writer.writerow(linha)
     file.close()
     source = open("source.txt", "r")
+    separador.append(';')
+    separador.append('==')
+    separador.append('=')
+    out.append('$')
     analisador(source)
+    print(out)
+    print(TS)
 main()
