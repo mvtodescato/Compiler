@@ -1,2 +1,9 @@
-if;
-else==if;
+int vara;
+xesque(vara==1)dele{
+vara:32;
+}
+moios{
+vara:vara;
+}while(1){
+vara:vara+1;
+}

@@ -208,7 +208,7 @@ def analisador(source):
             if caractere not in separador and sep == 0:
                 trans(caractere)
                 if est_corrente == 'Ø':
-                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In:" + caractere)
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "Inss:" + caractere)
                     erro = 1
                     break
                 else:
@@ -221,9 +221,21 @@ def analisador(source):
                     token = ''
                     est_corrente = 'S'
                 else:
-                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line))
-                    erro = 1
-                    break
+                    trans(caractere)
+                    if est_corrente == 'Ø':
+                        print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In:" + caractere)
+                        erro = 1
+                        break
+                    elif final[states.index(est_corrente)] == True:
+                        addFita(est_corrente)
+                        addTS(est_corrente,caractere,cont_line)
+                        token = ''
+                        est_corrente = 'S'
+                        continue
+                    else:
+                        print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In:" + caractere)
+                        erro = 1
+                        break
                 if caractere == ' ':
                     continue
                 else:
@@ -240,7 +252,7 @@ def analisador(source):
             else:
                 trans(caractere)
                 if est_corrente == 'Ø':
-                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In in:" + caractere)
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In:" + caractere)
                     erro = 1
                     break
                 if final[states.index(est_corrente)] == True:
@@ -252,7 +264,6 @@ def analisador(source):
                     sep = 0
                 else:
                     continue
-                #criar condição de tratamento quando o separador é token também
         if erro == 1 :
             break 
 
@@ -335,6 +346,15 @@ def main():
     separador.append(';')
     separador.append('==')
     separador.append('=')
+    separador.append('(')
+    separador.append(')')
+    separador.append('}')
+    separador.append('{')
+    separador.append('+')
+    separador.append('-')
+    separador.append(':')
+    separador.append(' ')
+    
     out.append('$')
     analisador(source)
     print(out)
