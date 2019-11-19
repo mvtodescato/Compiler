@@ -4,6 +4,6 @@ vara:32;
 }
 moios{
 vara:vara;
-}fon(1){
+}fon(vara<3){
 vara:vara+1;
 }

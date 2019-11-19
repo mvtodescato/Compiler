@@ -103,16 +103,8 @@ def removeEpsilon():
                 for transition in epsilons[state]:
                     if transition in epsilons:
                         for transition2 in epsilons[transition]:
-                            if transition2 not in epsilons[state] and transition2 != state:
-                                epsilons[state] += transition2
-                                mudanca = True
-
-        for state in epsilons:
-            for transition in epsilons[state]:
-                for i in range(len(AF[states.index(transition)])):
-                    for production in AF[states.index(transition)][i]:
-                        if production not in AF[states.index(state)][i]:
-                            AF[states.index(state)][i].append(production)
+                            if production not in AF[states.index(state)][i]:
+                                AF[states.index(state)][i].append(production)
                 if final[states.index(transition)]:
                     final[states.index(state)] = True
         for state in AF:
@@ -292,7 +284,7 @@ def main():
 
 
     for line in file:
-        if line[0] == '<':  #Caso seja um Gramatica Regular ela é adicionada ao Automato
+        if line[0] == '<' and len(line)>2:  #Caso seja um Gramatica Regular ela é adicionada ao Automato
             addRG(line)
         else:
             addToken(line)  #Caso seja um Token ele é adicionado ao Automato
@@ -354,7 +346,8 @@ def main():
     separador.append('-')
     separador.append(':')
     separador.append(' ')
-    
+    separador.append('<')
+    separador.append('>')
     out.append('$')
     analisador(source)
     print(out)
