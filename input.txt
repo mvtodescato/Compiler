@@ -20,4 +20,3 @@ moios
 int
 /
 *
-while

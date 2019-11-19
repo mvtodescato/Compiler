@@ -4,6 +4,6 @@ vara:32;
 }
 moios{
 vara:vara;
-}while(1){
+}fon(1){
 vara:vara+1;
 }

@@ -1,1 +1,8 @@
-<S> ::= 
+<S> ::= xesque '(' <OPL> ')' xesque '{' <S> '}' <SS> | fon '(' <OPL> ')' xesque '{' <S> '}' | int var ';' | var '=' <EXP> 
+<SS> ::= moios '{' <S> '}' | ε
+<EXP> ::= <EXP> '+' <MULTEXP> | <EXP> '-' <MULTEXP> | <MULTEXP>
+<MULTEXP> ::= <MULTEXP> '+' <NEGEXP> | <MULTEXP> '/' <NEGEXP> | <NEGEXP> 
+<NEGEXP> ::= '-' <TYPE> | <TYPE> | '(' <EXP> ')'
+<OPL> ::= var <OPLOG> <TYPE>
+<OPLOG> ::= '==' | '!='
+<TYPE> ::= var | const
