@@ -1,7 +1,8 @@
-<S> ::= xesque '(' <OPL> ')' xesque '{' <S> '}' <SS> | fon '(' <OPL> ')' xesque '{' <S> '}' | int var ';' | var '=' <EXP> ';'
-<SS> ::= moios '{' <S> '}' | ε
+"Start Symbol" = <S>
+<S> ::= <S> xesque '(' <OPL> ')' dele '{' <S> '}' <SS> <S> | <S> fon '(' <OPL> ')' dele '{' <S> '}' <S> | <S> int var ';' <S> | <S> var ':' <EXP> ';' <S> | <>
+<SS> ::= moios '{' <S> '}' <S>
 <EXP> ::= <EXP> '+' <MULTEXP> | <EXP> '-' <MULTEXP> | <MULTEXP>
-<MULTEXP> ::= <MULTEXP> '+' <NEGEXP> | <MULTEXP> '/' <NEGEXP> | <NEGEXP> 
+<MULTEXP> ::= <MULTEXP> '+' <NEGEXP> | <MULTEXP> '/' <NEGEXP> | <NEGEXP>
 <NEGEXP> ::= '-' <TYPE> | <TYPE> | '(' <EXP> ')'
 <OPL> ::= var <OPLOG> <TYPE>
 <OPLOG> ::= '==' | '!=' | '<' | '>'
