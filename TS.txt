@@ -4,6 +4,8 @@ K 1 ; N N
 D 2 vara opvar all 
 e 2 : N N 
 B 2 2 N N 
+_ 2 + N N 
+B 2 3 N N 
 K 2 ; N N 
 Q 3 xesque cond all 
 I 3 ( N N 

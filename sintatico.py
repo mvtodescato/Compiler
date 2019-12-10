@@ -155,9 +155,6 @@ def infos():
         index = index + 1
     print('Tabela de Simbolos com informações')
     print(TS)  
-#Oq?(atribuiçao,operaçao)
-#onde?(dentro doq)
-#passando na tabela de simbolos
 
 
 def sintatico():

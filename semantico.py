@@ -58,3 +58,4 @@ if erroSem == 1:
     print("Erro Semantico!!!")
 else:
     print("Sem erros semanticos")
+    import cod_int
