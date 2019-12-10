@@ -1,17 +1,17 @@
 int vara;
+vara:2;
+xesque(vara==1)dele{
+vara:32;
+}
+moios{
+vara:vara+1;
+}
 xesque(vara==1)dele{
 vara:32;
 }
 moios{
 vara:vara;
 }
-xesque(vara==1)dele{
-vara:32;
-}
-moios{
-vara:vara;
-}
-int vara;
 vara:vara*1;
 fon(vara>3)dele{
 vara:vara*1;

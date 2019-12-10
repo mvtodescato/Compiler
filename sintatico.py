@@ -179,20 +179,23 @@ arquivo = open('lista.txt','r')
 for linha in arquivo:
     for caractere in linha:
         fita.append(caractere)
+arquivo.close()
 
 arquivo = open('TS.txt','r')
-i = 0
 for linha in arquivo:
     linha = linha.rstrip('\n')
     aux = linha.split(' ')
     TS.append(aux)
-    
+arquivo.close()
         
 sintatico()
-with open('TS.txt', 'w') as arquivo:
-        for valor in TS:
-            for v in valor:
-                arquivo.write(str(v) + ' ')
-            arquivo.write('\n')
+if acpt == 1:
+    with open('TS.txt', 'w') as arquivo:
+            for valor in TS:
+                for v in valor:
+                    arquivo.write(str(v) + ' ')
+                arquivo.write('\n')
+    arquivo.close()
+    import semantico
             
             
