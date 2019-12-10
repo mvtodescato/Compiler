@@ -1,4 +1,5 @@
 import csv
+import xml.etree.ElementTree as ET
 AF = []
 states = []
 final = []
@@ -13,6 +14,7 @@ separador = []
 est_corrente = 'S'
 TS = []
 count_TS = 0
+erroLex = 0
 
 
 def newLine():
@@ -188,6 +190,7 @@ def addError():
 
 def analisador(source):
     global est_corrente
+    global erroLex
     cont_line = 0
     erro = 0
     token = ''
@@ -200,7 +203,7 @@ def analisador(source):
             if caractere not in separador and sep == 0:
                 trans(caractere)
                 if est_corrente == 'Ø':
-                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "Inss:" + caractere)
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "  In:" + caractere)
                     erro = 1
                     break
                 else:
@@ -215,7 +218,7 @@ def analisador(source):
                 else:
                     trans(caractere)
                     if est_corrente == 'Ø':
-                        print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In:" + caractere)
+                        print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "  In:" + caractere)
                         erro = 1
                         break
                     elif final[states.index(est_corrente)] == True:
@@ -225,7 +228,7 @@ def analisador(source):
                         est_corrente = 'S'
                         continue
                     else:
-                        print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In:" + caractere)
+                        print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "  In:" + caractere)
                         erro = 1
                         break
                 if caractere == ' ':
@@ -244,7 +247,7 @@ def analisador(source):
             else:
                 trans(caractere)
                 if est_corrente == 'Ø':
-                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "In:" + caractere)
+                    print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "  In:" + caractere)
                     erro = 1
                     break
                 if final[states.index(est_corrente)] == True:
@@ -257,6 +260,7 @@ def analisador(source):
                 else:
                     continue
         if erro == 1 :
+            erroLex = 1
             break 
 
 def addTS(estado,token,linha): 
@@ -348,8 +352,24 @@ def main():
     separador.append(' ')
     separador.append('<')
     separador.append('>')
-    out.append('$')
+    separador.append('!')
+    separador.append('!=')
+    separador.append('*')
+    separador.append('/')
     analisador(source)
-    print(out)
-    print(TS)
+    out.append('$')
+    if erroLex == 0:
+        with open('lista.txt', 'w') as arquivo:
+            for valor in out:
+                arquivo.write(valor)
+        with open('TS.txt', 'w') as arquivo:
+            for valor in TS:
+                for v in valor:
+                    arquivo.write(str(v) + ' ')
+                arquivo.write('\n')
+        print('Fita de Saída:')
+        print(out)
+        print('Tabela de Simbolos:')
+        print(TS)
+        import sintatico
 main()
