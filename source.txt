@@ -1,5 +1,5 @@
 int vara;
-vara:2+3;
+vara:2+2*5/3*7+2;
 xesque(vara==1)dele{
 vara:32;
 }

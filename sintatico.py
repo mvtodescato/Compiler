@@ -172,7 +172,7 @@ def sintatico():
             break
         rt = 0
 
-arquivo = open('lista.txt','r')
+arquivo = open('fita_saida.txt','r')
 for linha in arquivo:
     for caractere in linha:
         fita.append(caractere)

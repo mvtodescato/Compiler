@@ -359,7 +359,7 @@ def main():
     analisador(source)
     out.append('$')
     if erroLex == 0:
-        with open('lista.txt', 'w') as arquivo:
+        with open('fita_saida.txt', 'w') as arquivo:
             for valor in out:
                 arquivo.write(valor)
         with open('TS.txt', 'w') as arquivo:
