@@ -1,18 +1,18 @@
 int vara;
-vara:2+2*5/3*7+2;
-xesque(vara==1)dele{
-vara:32;
+vara : 2 + 2 * 5 / 3 * 4 + 2;
+xesque ( vara == 1 ) dele {
+    vara : 32;
 }
-moios{
-vara:vara+1;
+moios {
+    vara : vara + 1;
 }
-xesque(vara==1)dele{
-vara:32;
+xesque ( vara == 1 ) dele {
+    vara:32;
 }
-moios{
-vara:vara;
+moios {
+    vara : vara;
 }
-vara:vara*1;
-fon(vara>3)dele{
-vara:vara*1;
+vara : vara * 1;
+fon ( vara > 3 ) dele {
+    vara : vara * 1;
 }

@@ -1,4 +1,4 @@
-j 1 int atrib all 
+j 1 int decl all 
 D 1 vara var all 
 K 1 ; N N 
 D 2 vara opvar all 
@@ -11,7 +11,7 @@ B 2 5 N N
 k 2 / N N 
 B 2 3 N N 
 l 2 * N N 
-B 2 7 N N 
+B 2 4 N N 
 _ 2 + N N 
 B 2 2 N N 
 K 2 ; N N 

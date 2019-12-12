@@ -191,6 +191,8 @@ def addError():
 def analisador(source):
     global est_corrente
     global erroLex
+    newLine = 1
+    sep2 =0
     cont_line = 0
     erro = 0
     token = ''
@@ -199,9 +201,14 @@ def analisador(source):
         cont_line = cont_line + 1
         for caractere in line:
             if caractere == '\n':
+                newLine = 1
                 break
+            if newLine == 1 and caractere == ' ':
+                continue
             if caractere not in separador and sep == 0:
+                newLine = 0
                 trans(caractere)
+                sep2 = 0
                 if est_corrente == 'Ø':
                     print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "  In:" + caractere)
                     erro = 1
@@ -215,13 +222,14 @@ def analisador(source):
                     addTS(est_corrente,token,cont_line)
                     token = ''
                     est_corrente = 'S'
-                else:
+                elif sep2 == 0:
                     trans(caractere)
                     if est_corrente == 'Ø':
                         print ("ERRO LÉXICO NA LINHA %d" % (cont_line) + "  In:" + caractere)
                         erro = 1
                         break
                     elif final[states.index(est_corrente)] == True:
+                        sep2 = 1
                         addFita(est_corrente)
                         addTS(est_corrente,caractere,cont_line)
                         token = ''
@@ -232,6 +240,7 @@ def analisador(source):
                         erro = 1
                         break
                 if caractere == ' ':
+                    sep2 = 1
                     continue
                 else:
                     token = token + caractere

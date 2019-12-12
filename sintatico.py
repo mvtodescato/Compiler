@@ -49,6 +49,8 @@ def percorre():
         if child.tag == "LALRState":
             if child.attrib["Index"] == pilha[len(pilha)-1] :
                 in_state = 1
+            else:
+                in_state = 0
         if child.tag == "LALRAction" and in_state == 1:
             if child.attrib["SymbolIndex"] == fita[0]:
                 if child.attrib["Action"]=='1':
@@ -73,8 +75,6 @@ def translate():
         fita[i] = dic[fita[i]]
 
 def infos():
-    #mudar para lista o where para melhor controle
-    #arrumar tab no lexico
     index = 0
     cont = 0
     where = 'all'
@@ -82,8 +82,7 @@ def infos():
         if cont == 0:
             where = 'all'
         if TS[index][0] == 'j':
-            #atribuiçao
-            TS[index][3] = 'atrib'
+            TS[index][3] = 'decl'
             TS[index].append(where)
             index = index + 1
             TS[index][3]= 'var'
